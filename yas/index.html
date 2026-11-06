@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Til Yasmine</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #111;
+    color: #fff;
+    font-family: Impact, "Arial Black", Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  #start {
+    font-size: clamp(1.6rem, 6vw, 3rem);
+    padding: 1.2em 1.6em;
+    border: none;
+    border-radius: 18px;
+    background: #ff3b6b;
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+    box-shadow: 0 8px 30px rgba(255, 59, 107, 0.45);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+  }
+  #meme {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    max-width: 100vw;
+  }
+  #meme.vis { display: flex; animation: pop 0.4s ease-out; }
+  @keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  #tekst {
+    order: -1;
+    max-width: 600px;
+    text-align: center;
+    font-size: clamp(1.4rem, 5vw, 2.6rem);
+    line-height: 1.15;
+    color: #fff;
+  }
+  #meme img {
+    display: block;
+    width: min(92vw, calc(72vh * 236 / 335));
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+</style>
+</head>
+<body>
+  <button id="start">Klikk her for å åpne, Yasmine</button>
+
+  <div id="meme">
+    <img id="bilde" src="bilde.png" alt="">
+    <div id="tekst">POV: fant Yasmine på hjemmeområde til Orakel</div>
+  </div>
+
+  <audio id="musikk" src="clown_song.mp3" loop preload="auto"></audio>
+
+<script>
+  const start = document.getElementById('start');
+  const meme = document.getElementById('meme');
+  const musikk = document.getElementById('musikk');
+  const bilde = document.getElementById('bilde');
+
+  bilde.addEventListener('error', () => {
+    bilde.remove();
+    meme.classList.add('uten-bilde');
+  });
+
+  start.addEventListener('click', () => {
+    start.style.display = 'none';
+    meme.classList.add('vis');
+    musikk.currentTime = 0;
+    musikk.play().catch(() => {});
+  });
+</script>
+</body>
+</html>
